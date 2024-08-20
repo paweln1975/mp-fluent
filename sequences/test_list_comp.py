@@ -1,4 +1,9 @@
+"""
+Comprehensions with unit tests
+"""
 import timeit
+import unittest
+
 
 TIMES = 50000
 
@@ -42,8 +47,19 @@ class ListExt:
         print(label, *(f'{x:.4f}' for x in res))
 
 
-if __name__ == '__main__':
-    ListExt.clock('listcomp        :', '[ord(s) for s in symbols if ord(s) > 127]')
-    ListExt.clock('listcomp + func :', '[ord(s) for s in symbols if non_ascii(ord(s))]')
-    ListExt.clock('filter + lambda :', 'list(filter(lambda c: c > 127, map(ord, symbols)))')
-    ListExt.clock('filter + func   :', 'list(filter(non_ascii, map(ord, symbols)))')
+class TestListExtComp(unittest.TestCase):
+    def test_convert_to_codes(self):
+        codes = ListExt.convert_to_codes('$¢£¥€¤')
+        exp_list = [36, 162, 163, 165, 8364, 164]
+        self.assertListEqual(codes, exp_list)
+
+
+# if __name__ == '__main__':
+#     ListExt.clock('listcomp        :', '[ord(s) for s in symbols if ord(s) > 127]')
+#     ListExt.clock('listcomp + func :', '[ord(s) for s in symbols if non_ascii(ord(s))]')
+#     ListExt.clock('filter + lambda :', 'list(filter(lambda c: c > 127, map(ord, symbols)))')
+#     ListExt.clock('filter + func   :', 'list(filter(non_ascii, map(ord, symbols)))')
+
+
+if __name__ == "__main__":
+    unittest.main()
