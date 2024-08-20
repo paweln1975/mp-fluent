@@ -1,0 +1,8 @@
+>>> from sequences.expressions import ExpressionExt
+>>> codes = ExpressionExt.gen_tuple('$¢£¥€¤')
+>>> codes
+(36, 162, 163, 165, 8364, 164)
+>>> tshirts =  ExpressionExt.gen_cartesian(['black', 'white'], ['S', 'M', 'L'])
+>>> tshirts
+['black S', 'black M', 'black L', 'white S', 'white M', 'white L']
+

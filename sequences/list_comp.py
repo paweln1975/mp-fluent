@@ -27,7 +27,7 @@ class ListExt:
     @staticmethod
     def last_item_use_comp(s: str) -> int:
         last = 0
-        [last := ord(sym) for sym in s]
+        var = [last := ord(sym) for sym in s]
         return last
 
     @staticmethod
