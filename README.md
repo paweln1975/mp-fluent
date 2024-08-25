@@ -7,7 +7,9 @@ Fluent Python
 ## Built-in methods usage
 Example with CardDeck class to use ``__len__``, ``__getitem__`` methods.
 
-
+# Chapter 2 - An Array of Sequences
+Applies to sequences in general, from the list to the str and bytes types. Specific topics on lists, tuples,
+arrays, and queues are also covered here.
 # Usage
 ```
 python -m unittest discover
