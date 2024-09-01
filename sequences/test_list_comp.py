@@ -15,6 +15,9 @@ def non_ascii(c):
 
 
 class ListExt:
+    """
+    Class with static methods extending python comprehensions
+    """
     @staticmethod
     def convert_to_codes(s: str, use_comp=False) -> list:
         if use_comp:

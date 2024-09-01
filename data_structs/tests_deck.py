@@ -1,3 +1,6 @@
+"""
+Card deck module with unit tests
+"""
 import collections
 import unittest
 from random import choice
@@ -7,6 +10,9 @@ suit_values = dict(kier=3, karo=2, pik=1, trefl=0)
 
 
 class CardDeck:
+    """
+    Card deck class representing playing cards
+    """
     ranks = [str(n) for n in range(2, 11)] + list('JQKA')
     suits = 'kier karo pik trefl'.split()
 

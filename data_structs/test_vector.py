@@ -6,6 +6,9 @@ import unittest
 
 
 class Vector:
+    """
+    Vector class with x and y coordinates
+    """
     def __init__(self, x, y):
         self.x = x
         self.y = y
