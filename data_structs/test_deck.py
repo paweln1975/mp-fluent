@@ -1,6 +1,3 @@
-"""
-Card deck module with unit tests
-"""
 import collections
 import unittest
 from random import choice
@@ -48,11 +45,13 @@ class TestDeck(unittest.TestCase):
         self.assertEqual(str(card_1), "Card(rank='3', suit='kier')")
 
     def test_deck_slicing(self):
-        exp_str = "[Card(rank='2', suit='kier'), Card(rank='3', suit='kier'), Card(rank='4', suit='kier')]"
+        exp_str = ("[Card(rank='2', suit='kier'), Card(rank='3', suit='kier'), " +
+                   "Card(rank='4', suit='kier')]")
         self.assertEqual(str(self.deck[:3]), exp_str)
 
     def test_every_card(self):
-        exp_str = "[Card(rank='2', suit='kier'), Card(rank='2', suit='karo'), Card(rank='2', suit='pik'), Card(rank='2', suit='trefl')]"
+        exp_str = ("[Card(rank='2', suit='kier'), Card(rank='2', suit='karo'), " +
+                   "Card(rank='2', suit='pik'), Card(rank='2', suit='trefl')]")
         self.assertEqual(str(self.deck[::13]), exp_str)
 
     def test_random_choice(self):
