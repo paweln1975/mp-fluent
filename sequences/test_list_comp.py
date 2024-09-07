@@ -99,8 +99,8 @@ class TestListExtComp(unittest.TestCase):
         self.assertEqual(len(arr), len(exp_list))
 
     def test_performance(self):
-        ListExt.clock('listcomp        :', '[ord(s) for s in symbols if ord(s) > 127]')
-        ListExt.clock('listcomp + func :', '[ord(s) for s in symbols if non_ascii(ord(s))]')
+        ListExt.clock('list comp       :', '[ord(s) for s in symbols if ord(s) > 127]')
+        ListExt.clock('list comp + func:', '[ord(s) for s in symbols if non_ascii(ord(s))]')
         ListExt.clock('filter + lambda :', 'list(filter(lambda c: c > 127, map(ord, symbols)))')
         ListExt.clock('filter + func   :', 'list(filter(non_ascii, map(ord, symbols)))')
 
