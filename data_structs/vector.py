@@ -1,8 +1,7 @@
 """
-Vector class with unit tests
+Vector class with doc tests
 """
 import math
-import unittest
 
 
 class Vector:

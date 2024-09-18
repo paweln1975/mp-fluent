@@ -1,11 +1,12 @@
 """
-Comprehensions with unit tests
+Comprehensions with doc tests
 """
 import timeit
 import unittest
 import array
 
 TIMES = 50000
+SYMBOLS = '$¢£¥€¤'
 
 SETUP = """
 symbols = '$¢£¥€¤'
@@ -20,6 +21,14 @@ class ListExt:
     """
     @staticmethod
     def convert_to_codes(s: str, use_comp=False) -> list:
+        """
+        >>> sym_list = ListExt.convert_to_codes(SYMBOLS)
+        >>> sym_list
+        [36, 162, 163, 165, 8364, 164]
+        >>> sym_list = ListExt.convert_to_codes(SYMBOLS, True)
+        >>> sym_list
+        [36, 162, 163, 165, 8364, 164]
+        """
         if use_comp:
             return ListExt.convert_to_codes_use_comp(s)
         symbols = s
@@ -34,6 +43,11 @@ class ListExt:
 
     @staticmethod
     def last_item_use_comp(s: str) -> int:
+        """
+        >>> last_value = ListExt.last_item_use_comp(SYMBOLS)
+        >>> last_value
+        164
+        """
         last = 0
         [last := ord(sym) for sym in s]
         return last
@@ -62,20 +76,7 @@ class TestListExtComp(unittest.TestCase):
     def setUp(self):
         self.codes_str = '$¢£¥€¤'
 
-    def test_convert_to_codes(self):
-        exp_list = [36, 162, 163, 165, 8364, 164]
 
-        codes = ListExt.convert_to_codes(self.codes_str)
-        self.assertListEqual(codes, exp_list)
-
-        codes = ListExt.convert_to_codes(self.codes_str, use_comp=True)
-        self.assertListEqual(codes, exp_list)
-
-    def test_convert_to_codes_last_code(self):
-        exp_last_value = 164
-
-        last_value = ListExt.last_item_use_comp(self.codes_str)
-        self.assertEqual(last_value, exp_last_value)
 
     def test_cartesian(self):
         colors = ['black', 'white']
