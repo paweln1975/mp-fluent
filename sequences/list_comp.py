@@ -49,21 +49,38 @@ class ListExt:
         164
         """
         last = 0
-        [last := ord(sym) for sym in s]
+        last_comph = [last := ord(sym) for sym in s]
         return last
 
     @staticmethod
     def create_cartesian(first_list: list, second_list: list) -> list:
+        """
+        >>> colors = ['black', 'white']
+        >>> sizes = ['S', 'M', 'L']
+        >>> cartesian = ListExt.create_cartesian(colors, sizes)
+        >>> cartesian
+        [('black', 'S'), ('black', 'M'), ('black', 'L'), ('white', 'S'), ('white', 'M'), ('white', 'L')]
+        """
         ret_list = [(item1, item2) for item1 in first_list
                     for item2 in second_list]
         return ret_list
 
     @staticmethod
     def create_tuple(s: str) -> tuple:
+        """
+        >>> codes_tuple = ListExt.create_tuple(SYMBOLS)
+        >>> codes_tuple
+        (36, 162, 163, 165, 8364, 164)
+        """
         return tuple(ord(symbol) for symbol in s)
 
     @staticmethod
     def create_array(s: str) -> array.array:
+        """
+        >>> arr = ListExt.create_array(SYMBOLS)
+        >>> arr.tolist()
+        [36, 162, 163, 165, 8364, 164]
+        """
         return array.array("I", (ord(symbol) for symbol in s))
 
     @staticmethod
@@ -71,33 +88,18 @@ class ListExt:
         res = timeit.repeat(cmd, setup=SETUP, number=TIMES)
         print(label, *(f'{x:.4f}' for x in res))
 
-
+    @staticmethod
+    def unpack_values(self, source_tuple):
+        """
+        >>> value = ListExt.unpack_values((1, 2, 3, 4))
+        >>> value
+        1
+        """
+        first_item, second_item, *rest_args = source_tuple
+        return first_item
 class TestListExtComp(unittest.TestCase):
     def setUp(self):
         self.codes_str = '$¢£¥€¤'
-
-
-
-    def test_cartesian(self):
-        colors = ['black', 'white']
-        sizes = ['S', 'M', 'L']
-        lst = ListExt.create_cartesian(colors, sizes)
-        exp_list = [('black', 'S'), ('black', 'M'), ('black', 'L'), ('white', 'S'), ('white', 'M'), ('white', 'L')]
-
-        self.assertListEqual(lst, exp_list)
-
-    def test_create_tuple(self):
-        exp_tuple = (36, 162, 163, 165, 8364, 164)
-        tup = ListExt.create_tuple(self.codes_str)
-
-        self.assertTupleEqual(tup, exp_tuple)
-
-    def test_create_array(self):
-        arr = ListExt.create_array(self.codes_str)
-        exp_list = [36, 162, 163, 165, 8364, 164]
-
-        self.assertListEqual(arr.tolist(), exp_list)
-        self.assertEqual(len(arr), len(exp_list))
 
     def test_performance(self):
         ListExt.clock('list comp       :', '[ord(s) for s in symbols if ord(s) > 127]')
