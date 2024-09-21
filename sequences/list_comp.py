@@ -1,5 +1,6 @@
 """
 Comprehensions with doc tests
+>>> import sys; sys.tracebacklimit = 0
 """
 import timeit
 import unittest
@@ -89,14 +90,34 @@ class ListExt:
         print(label, *(f'{x:.4f}' for x in res))
 
     @staticmethod
-    def unpack_values(self, source_tuple):
+    def unpack_first_value(source_tuple):
         """
-        >>> value = ListExt.unpack_values((1, 2, 3, 4))
+        >>> value = ListExt.unpack_first_value((1, 2, 3, 4))
         >>> value
         1
         """
         first_item, second_item, *rest_args = source_tuple
         return first_item
+
+    @staticmethod
+    def unpack_last_value(source_tuple):
+        """
+        >>> value = ListExt.unpack_last_value((1, 2, 3, 4))
+        >>> value
+        [3, 4]
+        """
+        first_item, second_item, *rest_args = source_tuple
+        return rest_args
+
+    @staticmethod
+    def grab_excess_items(first, second, *args, **kwargs):
+        """
+        >>> value = ListExt.grab_excess_items(1, 2, 3, 4, 5)
+        >>> value
+        (1, (3, 4, 5))
+        """
+        return first, args
+
 class TestListExtComp(unittest.TestCase):
     def setUp(self):
         self.codes_str = '$¢£¥€¤'
