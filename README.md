@@ -6,8 +6,8 @@ Fluent Python
 # Chapter 1 - Data Structures
 ## Built-in methods usage
 Example with CardDeck class to use ``__len__``, ``__getitem__`` methods.
-
-# Chapter 2 - An Array of Sequences
+Example with Vector class where magic method were implemented: ``__add__``, ``__mul__``, etc.
+# Chapter 2 - An Array of Sequences1
 Applies to sequences in general, from the list to the str and bytes types. Specific topics on lists, tuples,
 arrays, and queues are also covered here.
 # Usage

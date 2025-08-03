@@ -62,4 +62,3 @@ class Vector:
         False
         """
         return bool(abs(self))
-
