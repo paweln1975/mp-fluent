@@ -5,6 +5,7 @@ Comprehensions with doc tests
 import timeit
 import unittest
 import array
+from collections import deque
 
 TIMES = 50000
 SYMBOLS = '$¢£¥€¤'
@@ -180,10 +181,97 @@ class ListExt:
         result += f'{"":15} | {"latitude":>9} | {"longitude":>9}\n'
         for record in values_list:
             match record:
-                case (name, _, _, (lat, lon)):
+                case (name, _, _, (float(lat), float(lon))):
                     if lon <= 0:
                         result += f'{name:15} | {lat:9.4f} | {lon:9.4f}\n'
         return result
+
+    @staticmethod
+    def named_slice(source_list: list, start: int = 0, end: int = None) -> list:
+        """
+        >>> source_list = [1, 2, 3, 4, 5]
+        >>> sliced_list = ListExt.named_slice(source_list, 0, 2)
+        >>> sliced_list
+        [1, 2]
+        """
+        if end is None:
+            end = len(source_list)
+
+        nslice = slice(start, end)
+        return source_list[nslice]
+
+    @staticmethod
+    def modify_with_slice(source_list: list, start: int, step: int, add_list: list) -> list:
+        """
+        >>> source_list = [1, 0, 3, 0, 5, 0, 7, 0, 9, 0]
+        >>> modified_list = ListExt.modify_with_slice(source_list, 1, 2, [2, 4, 6, 8, 10])
+        >>> modified_list
+        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        """
+        source_list[start::step] = add_list
+        return source_list
+
+class ArrayExt:
+    """
+    Class with static methods extending python array operations
+    """
+    @staticmethod
+    def store_floats_to_file(count: int, filename: str) -> None:
+        """
+        Store random floats to a binary file
+        >>> ArrayExt.store_floats_to_file(10**5, 'test_floats.bin')
+        True
+        """
+        from random import random
+        floats = array.array('d', (random() for _ in range(count)))
+        with open(filename, 'wb') as f:
+            floats.tofile(f)
+
+        floats2 = array.array('d')
+        with open(filename, 'rb') as f:
+            floats2.fromfile(f, count)
+
+        return floats == floats2
+
+class DequeExt:
+    @staticmethod
+    def create_deque_from_list(source_list: list) -> deque:
+        """
+        Create a deque from a list
+        >>> from collections import deque
+        >>> source_list = [1, 2, 3, 4, 5]
+        >>> d = DequeExt.create_deque_from_list(source_list)
+        >>> d
+        deque([1, 2, 3, 4, 5])
+        """
+        return deque(source_list)
+
+    @staticmethod
+    def created_sized_deque_from_list(source_list: list, maxlen: int) -> deque:
+        """
+        Create a sized deque from a list
+        >>> from collections import deque
+        >>> source_list = [1, 2, 3, 4, 5]
+        >>> d = DequeExt.created_sized_deque_from_list(source_list, 3)
+        >>> d
+        deque([3, 4, 5], maxlen=3)
+        """
+        return deque(source_list, maxlen=maxlen)
+
+    @staticmethod
+    def append_list_right_to_deque_with_lenght(source_deque: deque, added_list: list) -> int:
+        """
+        Append a list to the right of a deque and return its length
+        >>> source_list = [1, 2, 3]
+        >>> d = DequeExt.created_sized_deque_from_list([4, 5, 6, 7], maxlen=4)
+        >>> dq = DequeExt.append_list_right_to_deque_with_lenght(d, source_list)
+        >>> dq
+        deque([7, 1, 2, 3], maxlen=4)
+
+        """
+        source_deque.extend(added_list)
+        return source_deque
+
 
 class TestListExtComp(unittest.TestCase):
     def setUp(self):
